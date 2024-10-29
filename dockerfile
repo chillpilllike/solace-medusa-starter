@@ -1,9 +1,6 @@
 # Stage 1: Build the application
 FROM node:latest as build
 
-# Set working directory
-WORKDIR /app/solace-medusa-starter
-
 
 # Install dependencies
 RUN yarn install
