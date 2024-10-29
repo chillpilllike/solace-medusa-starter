@@ -1,6 +1,9 @@
 # Use the latest Node.js image
 FROM node:latest
 
+# Set working directory
+WORKDIR /app
+
 # Install dependencies
 RUN yarn install
 
