@@ -6,6 +6,6 @@ COPY . .
 
 RUN apt-get update
 
-RUN yarn
+RUN yarn install
 
-CMD yarn start
+CMD yarn dev
