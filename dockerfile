@@ -1,20 +1,27 @@
-# Use the latest Node.js image
+# Stage 1: Build the application
+FROM node:latest as build
+
+# Set working directory
+WORKDIR /app
+
+
+# Install dependencies
+RUN yarn install
+
+# Build the project
+RUN yarn build
+
+# Stage 2: Serve the application
 FROM node:latest
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock to the container
-COPY package.json yarn.lock ./
+# Copy the built files and node_modules from the build stage
+COPY --from=build /app ./
 
-# Install dependencies
-RUN yarn install
-
-# Copy the rest of the application code
-COPY . .
-
-# Expose application port
+# Expose the application port
 EXPOSE 3000
 
-# Start the development server
-CMD ["yarn", "dev"]
+# Start the application
+CMD ["yarn", "start"]
