@@ -19,7 +19,7 @@ ENV MEDUSA_BACKEND_URL=https://backend-backend-secretgreen9-v2.xcbkmg.easypanel.
 ENV NEXT_PUBLIC_BASE_URL=https://backend-storefront-secretgreen9-v2.xcbkmg.easypanel.host
 ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://backend-backend-secretgreen9-v2.xcbkmg.easypanel.host
 
-ENV NEXT_PUBLIC_STRAPI_URL=https://common-strapi2.xcbkmg.easypanel.host
+ENV NEXT_PUBLIC_STRAPI_URL=https://common-strapi.xcbkmg.easypanel.host
 ENV NEXT_PUBLIC_STRAPI_READ_TOKEN=40e5142ae1e8517fff421b6a1000063cc3e3efd3b1f90a6a42c0040058a3e649fa5ab0f35d9332a5bf03601d3189e17408f2680e75858b63bb3e9c3030b18847e71bb366e2bd2ce98fd85c9ef77bf346d30ada5d7db351d9cacfe6d2b52173058fd016caa37e66fdb825c60d99abd24147ce3d2a9989b274349338c0dd074196
 
 ENV NEXT_PUBLIC_CDN_SPACE_DOMAIN=secretgreen9.s3.ap-southeast-2.amazonaws.com
