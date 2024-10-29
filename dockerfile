@@ -2,7 +2,7 @@
 FROM node:latest as build
 
 # Set working directory
-WORKDIR /app
+WORKDIR /app/solace-medusa-starter
 
 
 # Install dependencies
