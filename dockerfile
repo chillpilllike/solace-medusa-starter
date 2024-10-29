@@ -22,7 +22,7 @@ COPY . .
 
 
 # RUN yarn build
-# RUN yarn install
+RUN yarn install
 
 # If using npm comment out above and use below instead
 # RUN npm run build
