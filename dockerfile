@@ -4,10 +4,8 @@ FROM node:latest
 # Install dependencies
 RUN yarn install
 
-RUN yarn build
-
 # Expose application port
 EXPOSE 3000
 
 # Start the development server
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]
