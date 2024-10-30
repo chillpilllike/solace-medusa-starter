@@ -24,7 +24,9 @@ ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 ENV STRAPI_WEBHOOK_REVALIDATION_SECRET=09876fedcba54321fedcba09876fedcba54321fedcba09876fedcba54321fedc
 
 # Install dependencies
-RUN yarn
+RUN yarn install
+
+RUN yarn build
 
 # Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
