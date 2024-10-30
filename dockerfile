@@ -4,8 +4,10 @@ FROM node:latest
 # Set the working directory in the container
 WORKDIR /app
 
-copy ..
+# Copy the current directory contents into the container's working directory
+COPY . .
 
+# Environment variables for Medusa, Strapi, and other configurations
 ENV NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_2a03247a9bba676354504f257ebf79cd734e6f16384bdbb4d724db5b9ff8e8ea
 ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://backend-backend-secretgreen9-v2.xcbkmg.easypanel.host
 ENV NEXT_PUBLIC_DEMO_MODE=false
@@ -24,7 +26,7 @@ ENV STRAPI_WEBHOOK_REVALIDATION_SECRET=09876fedcba54321fedcba09876fedcba54321fed
 # Install dependencies
 RUN yarn install
 
-# Expose the development port (3000 is common for dev setups, but adjust if needed)
+# Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
 
 # Start the application in development mode
