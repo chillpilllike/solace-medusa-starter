@@ -27,8 +27,10 @@ ENV STRAPI_WEBHOOK_REVALIDATION_SECRET=09876fedcba54321fedcba09876fedcba54321fed
 # Install dependencies
 RUN yarn install
 
+RUN yarn build
+
 # Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
 
 # Start the application in development mode
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
