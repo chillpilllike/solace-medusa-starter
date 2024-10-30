@@ -29,10 +29,8 @@ RUN corepack enable && corepack prepare yarn@3.2.3 --activate
 # Install dependencies
 RUN yarn install
 
-RUN yarn build
-
 # Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
 
 # Start the application in development mode
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]
