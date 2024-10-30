@@ -11,7 +11,7 @@ RUN git clone https://github.com/rigby-sh/solace-medusa-starter.git .
 RUN yarn install
 
 # Expose the development port (3000 is common for dev setups, but adjust if needed)
-EXPOSE 3000
+EXPOSE 8000
 
 # Start the application in development mode
 CMD ["yarn", "dev"]
