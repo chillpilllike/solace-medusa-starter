@@ -23,6 +23,9 @@ ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
 ENV STRAPI_WEBHOOK_REVALIDATION_SECRET=09876fedcba54321fedcba09876fedcba54321fedcba09876fedcba54321fedc
 
+# Enable Corepack and install the specified Yarn version
+RUN corepack enable && corepack prepare yarn@3.2.3 --activate
+
 # Install dependencies
 RUN yarn install
 
