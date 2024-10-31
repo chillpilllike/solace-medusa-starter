@@ -14,21 +14,40 @@ export const fetchStrapiClient = async (
   endpoint: string,
   params?: RequestInit
 ) => {
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
+  const strapiToken = process.env.NEXT_PUBLIC_STRAPI_READ_TOKEN;
+
+  // Log Strapi URL and token availability for debugging
+  console.log("Strapi URL:", strapiUrl);
+  console.log("Strapi Token exists:", !!strapiToken);
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}${endpoint}`,
+    `${strapiUrl}${endpoint}`,
     {
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_READ_TOKEN}`,
+        Authorization: `Bearer ${strapiToken}`,
       },
       ...params,
     }
-  )
+  );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch data')
+    const errorData = await response.json().catch(() => ({})); // Attempt to parse JSON error, fallback to empty object
+    console.error(`Failed to fetch data from ${endpoint}: ${response.status} - ${errorData.message || "No message"}`);
+    throw new Error(`Failed to fetch data: ${response.statusText}`);
   }
 
-  return response
+  return response;
+}
+
+// Helper function to parse response JSON with error handling
+const parseResponse = async (res: Response) => {
+  try {
+    return await res.json();
+  } catch (error) {
+    console.error("Error parsing JSON response:", error);
+    throw new Error("Failed to parse JSON data");
+  }
 }
 
 // Homepage data
@@ -38,9 +57,8 @@ export const getHeroBannerData = async (): Promise<HeroBannerData> => {
     {
       next: { tags: ['hero-banner'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 export const getMidBannerData = async (): Promise<MidBannerData> => {
@@ -49,17 +67,15 @@ export const getMidBannerData = async (): Promise<MidBannerData> => {
     {
       next: { tags: ['mid-banner'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 export const getCollectionsData = async (): Promise<CollectionsData> => {
   const res = await fetchStrapiClient(`/api/collections?&populate=*`, {
     next: { tags: ['collections-main'] },
-  })
-
-  return res.json()
+  });
+  return parseResponse(res);
 }
 
 export const getExploreBlogData = async (): Promise<BlogData> => {
@@ -68,9 +84,8 @@ export const getExploreBlogData = async (): Promise<BlogData> => {
     {
       next: { tags: ['explore-blog'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 // Products
@@ -80,9 +95,8 @@ export const getProductVariantsColors = async (): Promise<VariantColorData> => {
     {
       next: { tags: ['variants-colors'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 // About Us
@@ -92,9 +106,8 @@ export const getAboutUs = async (): Promise<AboutUsData> => {
     {
       next: { tags: ['about-us'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 // FAQ
@@ -104,9 +117,8 @@ export const getFAQ = async (): Promise<FAQData> => {
     {
       next: { tags: ['faq'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
 // Content Page
@@ -116,9 +128,8 @@ export const getContentPage = async (
 ): Promise<ContentPageData> => {
   const res = await fetchStrapiClient(`/api/${type}?populate=*`, {
     next: { tags: [tag] },
-  })
-
-  return res.json()
+  });
+  return parseResponse(res);
 }
 
 // Blog
@@ -131,23 +142,21 @@ export const getBlogPosts = async ({
   query?: string
   category?: string
 }): Promise<BlogData> => {
-  const baseUrl = `/api/blogs?populate[1]=FeaturedImage&populate[2]=Categories&sort=${sortBy}&pagination[limit]=1000`
-
-  let urlWithFilters = baseUrl
+  const baseUrl = `/api/blogs?populate[1]=FeaturedImage&populate[2]=Categories&sort=${sortBy}&pagination[limit]=1000`;
+  let urlWithFilters = baseUrl;
 
   if (query) {
-    urlWithFilters += `&filters[Title][$contains]=${query}`
+    urlWithFilters += `&filters[Title][$contains]=${query}`;
   }
 
   if (category) {
-    urlWithFilters += `&filters[Categories][Slug][$eq]=${category}`
+    urlWithFilters += `&filters[Categories][Slug][$eq]=${category}`;
   }
 
   const res = await fetchStrapiClient(urlWithFilters, {
     next: { tags: ['blog'] },
-  })
-
-  return res.json()
+  });
+  return parseResponse(res);
 }
 
 export const getBlogPostCategories = async (): Promise<BlogData> => {
@@ -156,12 +165,11 @@ export const getBlogPostCategories = async (): Promise<BlogData> => {
     {
       next: { tags: ['blog-categories'] },
     }
-  )
-
-  return res.json()
+  );
+  return parseResponse(res);
 }
 
-// Blog
+// Blog by Slug
 export const getBlogPostBySlug = async (
   slug: string
 ): Promise<BlogPost | null> => {
@@ -170,22 +178,22 @@ export const getBlogPostBySlug = async (
     {
       next: { tags: [`blog-${slug}`] },
     }
-  )
+  );
 
-  const data = await res.json()
+  const data = await parseResponse(res);
 
   if (data.data && data.data.length > 0) {
-    return data.data[0]
+    return data.data[0];
   }
 
-  return null
+  return null;
 }
 
 export const getAllBlogSlugs = async (): Promise<string[]> => {
   const res = await fetchStrapiClient(`/api/blogs?populate=*`, {
     next: { tags: ['blog-slugs'] },
-  })
+  });
 
-  const data = await res.json()
-  return data.data.map((post: BlogPost) => post.Slug)
+  const data = await parseResponse(res);
+  return data.data.map((post: BlogPost) => post.Slug);
 }
