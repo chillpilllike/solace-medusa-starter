@@ -4,8 +4,6 @@ FROM node:latest
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container's working directory
-COPY . .
 
 # Environment variables for Medusa, Strapi, and other configurations
 ENV NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_2a03247a9bba676354504f257ebf79cd734e6f16384bdbb4d724db5b9ff8e8ea
@@ -25,6 +23,17 @@ ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
 
 
+# Copy only package.json and yarn.lock initially for caching layers
+COPY package.json yarn.lock ./
+
+# Install dependencies
+RUN yarn install
+
+# Copy the rest of the code into the container
+COPY . .
+
+
+# Run the build command
 RUN yarn build
 
 # Expose the port your application will run on (adjust if necessary)
@@ -32,3 +41,4 @@ EXPOSE 8000
 
 # Start the application in development mode
 CMD ["yarn", "start"]
+
