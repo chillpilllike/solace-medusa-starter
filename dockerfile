@@ -24,8 +24,6 @@ ENV NEXT_PUBLIC_SPACE_DOMAIN=backend-storefront-secretgreen9-v2.xcbkmg.easypanel
 ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
 
-# Install dependencies
-RUN yarn install
 
 RUN yarn build
 
