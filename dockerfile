@@ -25,10 +25,10 @@ ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
 
 
-RUN yarn install
+RUN yarn build
 
 # Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
 
 # Start the application in development mode
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
