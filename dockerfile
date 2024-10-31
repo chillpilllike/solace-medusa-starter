@@ -10,7 +10,7 @@ COPY . .
 # Environment variables for Medusa, Strapi, and other configurations
 ENV NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_2a03247a9bba676354504f257ebf79cd734e6f16384bdbb4d724db5b9ff8e8ea
 ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://backend-backend-secretgreen9-v2.xcbkmg.easypanel.host
-ENV NEXT_PUBLIC_DEMO_MODE=false # Boolean to toggle demo mode (true or false)
+ENV NEXT_PUBLIC_DEMO_MODE=false
 
 # Strapi-specific values
 ENV NEXT_PUBLIC_STRAPI_URL=https://common-strapi2.xcbkmg.easypanel.host
@@ -20,8 +20,8 @@ ENV STRAPI_WEBHOOK_REVALIDATION_SECRET=155f1e4372952a46bd56e6b2797383d9d0a910c7c
 
 # CDN or Static Asset Hosting values
 ENV NEXT_PUBLIC_CDN_SPACE_DOMAIN=secretgreen9.s3.ap-southeast-2.amazonaws.com
-ENV NEXT_PUBLIC_SPACE_DOMAIN=backend-storefront-secretgreen9-v2.xcbkmg.easypanel.host # Domain for the main frontend application
-ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com # API endpoint or specific path for the frontend application
+ENV NEXT_PUBLIC_SPACE_DOMAIN=backend-storefront-secretgreen9-v2.xcbkmg.easypanel.host
+ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
 
 # Install dependencies
