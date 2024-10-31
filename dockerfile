@@ -32,12 +32,10 @@ COPY . .
 RUN yarn install
 
 
-# Run the build command
-RUN yarn build
 
 # Expose the port your application will run on (adjust if necessary)
 EXPOSE 8000
 
 # Start the application in development mode
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]
 
