@@ -21,13 +21,13 @@ ENV NEXT_PUBLIC_CDN_SPACE_DOMAIN=secretgreen9.s3.ap-southeast-2.amazonaws.com
 ENV NEXT_PUBLIC_SPACE_DOMAIN=backend-storefront-secretgreen9-v2.xcbkmg.easypanel.host
 ENV NEXT_PUBLIC_SPACE_ENDPOINT=s3.ap-southeast-2.amazonaws.com
 
-
+# Install dependencies
+RUN yarn install
 
 # Copy only package.json and yarn.lock initially for caching layers
 COPY package.json yarn.lock ./
 
-# Install dependencies
-RUN yarn install
+
 
 # Copy the rest of the code into the container
 COPY . .
